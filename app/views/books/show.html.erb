@@ -7,8 +7,8 @@
 
   <table class="table table-hover table-inverse">
         <tr>
-          <th>
-            <%= attachment_image_tag @user, :profile_image, :fill, 30, 30, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+          <th><%= link_to user_path(@user.id) do %>
+            <%= attachment_image_tag @book.user, :profile_image, :fill, 30, 30, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %><br><%= @user.name %><% end %>
           </th>
           <th></th>
           <th></th>
@@ -16,16 +16,12 @@
           <th></th>
           <th></th>
           <th align="left"><%= @book.body %></th>
-          <th><%= link_to "Edit", edit_book_path(@book.id) %></th>
-          <th><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></th>
+          <th><% if @user.id == current_user.id %>
+          <%= link_to "Edit", edit_book_path(@book.id) %><% end %></th>
+          <th><% if @user.id == current_user.id %>
+          <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %><% end %></th>
        </tr>
   </table>
 </div>
 </div>
 </div>
-
-
-
-
-
-<%#<%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
