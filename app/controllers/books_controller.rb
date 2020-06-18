@@ -21,9 +21,11 @@ class BooksController < ApplicationController
 
 
   def index
+      #@book = Book.find(params[:id])
       @books = Book.all
-      @book = Book.new
+      @book_new = Book.new
       @users = User.all
+      #@book_comment = BookComment.find(params[:id])
   end
 
 
@@ -31,6 +33,10 @@ class BooksController < ApplicationController
       @book = Book.find(params[:id])
       @book_new = Book.new
       @user = @book.user
+      @book_comment = BookComment.new
+      #@users = User.all
+      #@commnter = BookComment.find(params[:id])
+      #した書き換え
       #User.find(@book.user_id)
   end
 
