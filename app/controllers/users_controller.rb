@@ -27,8 +27,21 @@ class UsersController < ApplicationController
     @users = User.all
     @book = Book.new
     @booker = current_user
-
   end
+
+
+
+  def follower
+     @user = User.find(params[:id])
+     @followers = @user.followers
+  end
+
+  def follow
+    @user = User.find(params[:id])
+    @followings = @user.followings
+  end
+
+
 
   private
 

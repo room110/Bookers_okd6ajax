@@ -11,8 +11,33 @@
         <th>introduction</th>
         <th><%= user.introduction%></th>
       </tr>
+      <tr>
+        <th>follows</th>
+        <th><%= link_to follow_user_path(user) do %><%= user.relationships.count %><% end %></th>
+      </tr>
+      <tr>
+        <th>followers</th>
+        <th><%= link_to follower_user_path(user) do %><%= user.reverse_of_relationships.count %><% end %></th>
+      </tr>
   </tbody>
 </table>
+
+<div class="row">
+        <% unless current_user == user %>
+          <% if current_user.following?(user) %>
+               <%= form_for(current_user.relationships.find_by(follow_id: user.id), html: { method: :delete }) do |f| %>
+               <%= hidden_field_tag :follow_id, user.id %>
+               <%= f.submit 'フォロー外す', class:'btn btn-danger btn-block'%>
+               <% end %>
+          <% else %>
+               <%= form_for(current_user.relationships.build) do |f| %>
+               <%= hidden_field_tag :follow_id, user.id %>
+               <%= f.submit 'フォローする', class:'btn btn-primary btn-block' %>
+               <% end %>
+          <% end %>
+        <% end %>
+</div>
+
 
 
 <div class="row">
@@ -24,17 +49,13 @@
 <% end %>
 </div>
 
-
-
-
 <div class="row">
 <h1>New book</h1>
 
 <%= form_for(book) do |f| %>
-
-<% if book.errors.any? %>
-<table>
-  <font color="red">
+  <% if book.errors.any? %>
+  <table>
+    <font color="red">
        <p>2 errors prohibited this book from being saved:</p>
          <ul>
             <li>Title can't be blank</li>
@@ -42,16 +63,16 @@
             <li>opinion is too long</li>
          </ul>
     </font>
-</table>
-<% end %>
-
+  </table>
+  <% end %>
 
   <h4>Title</h4>
       <%= f.text_field :title, class:"col-xs-12"%>
   <h4>Opinion</h4>
     <%= f.text_area :body, class:"col-xs-12" %>
-   <h4 class="col-xs-12"></h4>
+  <h4 class="col-xs-12"></h4>
     <%= f.submit 'Create Book', class:"btn btn-primary col-xs-12" %>
 <% end %>
+
 </div>
 </div>
