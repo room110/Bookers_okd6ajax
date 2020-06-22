@@ -41,6 +41,15 @@ class UsersController < ApplicationController
     @followings = @user.followings
   end
 
+  #def search
+  # if params[:name].present?
+  #    @users = User.where('name LIKE ?', "%#{params[:name]}%")
+  #    redirect_to searches_path
+  #  else
+  #    @users = User.none
+  #  end
+  #end
+
 
 
   private
